@@ -1,0 +1,19 @@
+{
+  "version": "38.0.1",
+  "files": {
+    "5ac350241d5959bcab4b962e0c07240cc5a0ca6fb9dea7085c2463258b7c3f05": {
+      "source": {
+        "path": "EbsSnapshotCostDemoStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "5ac350241d5959bcab4b962e0c07240cc5a0ca6fb9dea7085c2463258b7c3f05.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

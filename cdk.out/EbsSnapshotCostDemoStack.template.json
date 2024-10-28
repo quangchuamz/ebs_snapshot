@@ -1,0 +1,1232 @@
+{
+ "Resources": {
+  "VPCB9E5F0B4": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/Resource"
+   }
+  },
+  "VPCPublicSubnet1SubnetB4246D30": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1/Subnet"
+   }
+  },
+  "VPCPublicSubnet1RouteTableFEE4B781": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1/RouteTable"
+   }
+  },
+  "VPCPublicSubnet1RouteTableAssociation0B0896DC": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VPCPublicSubnet1RouteTableFEE4B781"
+    },
+    "SubnetId": {
+     "Ref": "VPCPublicSubnet1SubnetB4246D30"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "VPCPublicSubnet1DefaultRoute91CEF279": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VPCIGWB7E252D3"
+    },
+    "RouteTableId": {
+     "Ref": "VPCPublicSubnet1RouteTableFEE4B781"
+    }
+   },
+   "DependsOn": [
+    "VPCVPCGW99B986DC"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "VPCPublicSubnet1EIP6AD938E8": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1/EIP"
+   }
+  },
+  "VPCPublicSubnet1NATGatewayE0556630": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "VPCPublicSubnet1EIP6AD938E8",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "VPCPublicSubnet1SubnetB4246D30"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "VPCPublicSubnet1DefaultRoute91CEF279",
+    "VPCPublicSubnet1RouteTableAssociation0B0896DC"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet1/NATGateway"
+   }
+  },
+  "VPCPublicSubnet2Subnet74179F39": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2/Subnet"
+   }
+  },
+  "VPCPublicSubnet2RouteTable6F1A15F1": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2/RouteTable"
+   }
+  },
+  "VPCPublicSubnet2RouteTableAssociation5A808732": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VPCPublicSubnet2RouteTable6F1A15F1"
+    },
+    "SubnetId": {
+     "Ref": "VPCPublicSubnet2Subnet74179F39"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "VPCPublicSubnet2DefaultRouteB7481BBA": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VPCIGWB7E252D3"
+    },
+    "RouteTableId": {
+     "Ref": "VPCPublicSubnet2RouteTable6F1A15F1"
+    }
+   },
+   "DependsOn": [
+    "VPCVPCGW99B986DC"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "VPCPublicSubnet2EIP4947BC00": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2/EIP"
+   }
+  },
+  "VPCPublicSubnet2NATGateway3C070193": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "VPCPublicSubnet2EIP4947BC00",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "VPCPublicSubnet2Subnet74179F39"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "VPCPublicSubnet2DefaultRouteB7481BBA",
+    "VPCPublicSubnet2RouteTableAssociation5A808732"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PublicSubnet2/NATGateway"
+   }
+  },
+  "VPCPrivateSubnet1Subnet8BCA10E0": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet1/Subnet"
+   }
+  },
+  "VPCPrivateSubnet1RouteTableBE8A6027": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet1/RouteTable"
+   }
+  },
+  "VPCPrivateSubnet1RouteTableAssociation347902D1": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VPCPrivateSubnet1RouteTableBE8A6027"
+    },
+    "SubnetId": {
+     "Ref": "VPCPrivateSubnet1Subnet8BCA10E0"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "VPCPrivateSubnet1DefaultRouteAE1D6490": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "VPCPublicSubnet1NATGatewayE0556630"
+    },
+    "RouteTableId": {
+     "Ref": "VPCPrivateSubnet1RouteTableBE8A6027"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "VPCPrivateSubnet2SubnetCFCDAA7A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet2/Subnet"
+   }
+  },
+  "VPCPrivateSubnet2RouteTable0A19E10E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet2/RouteTable"
+   }
+  },
+  "VPCPrivateSubnet2RouteTableAssociation0C73D413": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VPCPrivateSubnet2RouteTable0A19E10E"
+    },
+    "SubnetId": {
+     "Ref": "VPCPrivateSubnet2SubnetCFCDAA7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "VPCPrivateSubnet2DefaultRouteF4F5CFD2": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "VPCPublicSubnet2NATGateway3C070193"
+    },
+    "RouteTableId": {
+     "Ref": "VPCPrivateSubnet2RouteTable0A19E10E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "VPCIGWB7E252D3": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EbsSnapshotCostDemoStack/VPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/IGW"
+   }
+  },
+  "VPCVPCGW99B986DC": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "VPCIGWB7E252D3"
+    },
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VPC/VPCGW"
+   }
+  },
+  "EC2RoleF978FC1C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/EC2Role/Resource"
+   }
+  },
+  "Instance0InstanceSecurityGroup7897592D": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "EbsSnapshotCostDemoStack/Instance0/InstanceSecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2-Instance0"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/Instance0/InstanceSecurityGroup/Resource"
+   }
+  },
+  "Instance0InstanceProfile3A61DE71": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "EC2RoleF978FC1C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/Instance0/InstanceProfile"
+   }
+  },
+  "Instance008A4B15C": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "IamInstanceProfile": {
+     "Ref": "Instance0InstanceProfile3A61DE71"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.micro",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "Instance0InstanceSecurityGroup7897592D",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "VPCPrivateSubnet1Subnet8BCA10E0"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2-Instance0"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "#!/bin/bash\nyum update -y\nyum install -y cronie\necho '0 0 * * * dd if=/dev/zero of=/data/file_$(date +%Y%m%d).bin bs=1M count=2048' | crontab -\nsystemctl enable crond && systemctl start crond"
+    }
+   },
+   "DependsOn": [
+    "EC2RoleF978FC1C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/Instance0/Resource"
+   }
+  },
+  "EBSVolume07D390FD2": {
+   "Type": "AWS::EC2::Volume",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::GetAtt": [
+      "Instance008A4B15C",
+      "AvailabilityZone"
+     ]
+    },
+    "Encrypted": true,
+    "MultiAttachEnabled": false,
+    "Size": 20,
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EBSVolume0"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "EBSSnapshotCostDemo0"
+     },
+     {
+      "Key": "RetentionStrategy",
+      "Value": "3days"
+     }
+    ],
+    "VolumeType": "gp3"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/EBSVolume0/Resource"
+   }
+  },
+  "VolumeAttachment0": {
+   "Type": "AWS::EC2::VolumeAttachment",
+   "Properties": {
+    "Device": "/dev/sdf",
+    "InstanceId": {
+     "Ref": "Instance008A4B15C"
+    },
+    "VolumeId": {
+     "Ref": "EBSVolume07D390FD2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VolumeAttachment0"
+   }
+  },
+  "Instance1InstanceSecurityGroup50841F79": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "EbsSnapshotCostDemoStack/Instance1/InstanceSecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2-Instance1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "VPCB9E5F0B4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/Instance1/InstanceSecurityGroup/Resource"
+   }
+  },
+  "Instance1InstanceProfileC04770B7": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "EC2RoleF978FC1C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/Instance1/InstanceProfile"
+   }
+  },
+  "Instance14BC3991D": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "IamInstanceProfile": {
+     "Ref": "Instance1InstanceProfileC04770B7"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.micro",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "Instance1InstanceSecurityGroup50841F79",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "VPCPrivateSubnet1Subnet8BCA10E0"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EC2-Instance1"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "#!/bin/bash\nyum update -y\nyum install -y cronie\necho '0 0 * * * dd if=/dev/zero of=/data/file_$(date +%Y%m%d).bin bs=1M count=2048' | crontab -\nsystemctl enable crond && systemctl start crond"
+    }
+   },
+   "DependsOn": [
+    "EC2RoleF978FC1C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/Instance1/Resource"
+   }
+  },
+  "EBSVolume15C9D4196": {
+   "Type": "AWS::EC2::Volume",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::GetAtt": [
+      "Instance14BC3991D",
+      "AvailabilityZone"
+     ]
+    },
+    "Encrypted": true,
+    "MultiAttachEnabled": false,
+    "Size": 20,
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "EBSVolume1"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "EBSSnapshotCostDemo1"
+     },
+     {
+      "Key": "RetentionStrategy",
+      "Value": "monthly"
+     }
+    ],
+    "VolumeType": "gp3"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/EBSVolume1/Resource"
+   }
+  },
+  "VolumeAttachment1": {
+   "Type": "AWS::EC2::VolumeAttachment",
+   "Properties": {
+    "Device": "/dev/sdf",
+    "InstanceId": {
+     "Ref": "Instance14BC3991D"
+    },
+    "VolumeId": {
+     "Ref": "EBSVolume15C9D4196"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/VolumeAttachment1"
+   }
+  },
+  "DLMLifecycleRoleE117F3B4": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "dlm.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSDataLifecycleManagerServiceRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/DLMLifecycleRole/Resource"
+   }
+  },
+  "ThreeDayRetentionPolicy": {
+   "Type": "AWS::DLM::LifecyclePolicy",
+   "Properties": {
+    "Description": "EBS snapshot policy with 3-day retention",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "DLMLifecycleRoleE117F3B4",
+      "Arn"
+     ]
+    },
+    "PolicyDetails": {
+     "ResourceTypes": [
+      "VOLUME"
+     ],
+     "Schedules": [
+      {
+       "CopyTags": true,
+       "CreateRule": {
+        "Interval": 24,
+        "IntervalUnit": "HOURS",
+        "Times": [
+         "00:05"
+        ]
+       },
+       "Name": "3-day-retention-schedule",
+       "RetainRule": {
+        "Count": 3
+       },
+       "TagsToAdd": [
+        {
+         "Key": "SnapshotType",
+         "Value": "3DayRetention"
+        }
+       ]
+      }
+     ],
+     "TargetTags": [
+      {
+       "Key": "RetentionStrategy",
+       "Value": "3days"
+      }
+     ]
+    },
+    "State": "ENABLED"
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/ThreeDayRetentionPolicy"
+   }
+  },
+  "MonthlyRetentionPolicy": {
+   "Type": "AWS::DLM::LifecyclePolicy",
+   "Properties": {
+    "Description": "EBS snapshot policy with monthly retention",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "DLMLifecycleRoleE117F3B4",
+      "Arn"
+     ]
+    },
+    "PolicyDetails": {
+     "ResourceTypes": [
+      "VOLUME"
+     ],
+     "Schedules": [
+      {
+       "CopyTags": true,
+       "CreateRule": {
+        "Interval": 24,
+        "IntervalUnit": "HOURS",
+        "Times": [
+         "00:21"
+        ]
+       },
+       "Name": "monthly-retention-schedule",
+       "RetainRule": {
+        "Count": 30
+       },
+       "TagsToAdd": [
+        {
+         "Key": "SnapshotType",
+         "Value": "MonthlyRetention"
+        }
+       ]
+      }
+     ],
+     "TargetTags": [
+      {
+       "Key": "RetentionStrategy",
+       "Value": "monthly"
+      }
+     ]
+    },
+    "State": "ENABLED"
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/MonthlyRetentionPolicy"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Q0WrDMAz8lr673tKNvZcwSmBsJhl9HYqqUK2OXWx5IYT8+0izNqNPdzpOx0kbnb0862wFXVzj4bS2XOuhEsCTgi5+DYQbPezPqPLG7U2uTKotY5VqRzJpCyt9EvqE2tKiL9o2Ro8Mwt7dzBN5LcwE7yA7EOqgVybwDwgtwYUTCo5uhrnJ37QVATy25EQVLgo4JFURpsDS74JP50uZe+Fm3Xub2kuRe7YEj4qh1UPp58uueM0wwTdsaVQH2+q8cW/cEPZoyXjL2I+qpOhTwMuSgQAtCYVp+EhyTvPv/lly7w48/WlUppejdw9POnvU2Wb1HZnXITnhlnQ54y913dXvwAEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "EbsSnapshotCostDemoStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Parameters": {
+  "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+   "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Outputs": {
+  "InstanceId0": {
+   "Value": {
+    "Ref": "Instance008A4B15C"
+   }
+  },
+  "VolumeId0": {
+   "Value": {
+    "Ref": "EBSVolume07D390FD2"
+   }
+  },
+  "InstanceId1": {
+   "Value": {
+    "Ref": "Instance14BC3991D"
+   }
+  },
+  "VolumeId1": {
+   "Value": {
+    "Ref": "EBSVolume15C9D4196"
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
